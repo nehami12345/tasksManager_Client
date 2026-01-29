@@ -1,0 +1,37 @@
+<div class="teams-container">
+    <header>
+        <h1>My Teams</h1>
+    </header>
+
+    <div class="create-team-section">
+        <h3>Create New Team</h3>
+        <div class="input-group">
+            <input type="text" placeholder="Enter team name..." [(ngModel)]="newTeamName" (keyup.enter)="createTeam()">
+            <button (click)="createTeam()" [disabled]="!newTeamName.trim()">Create</button>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading" class="loading">Loading teams...</div>
+
+    <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+    <div class="teams-grid" *ngIf="(teams$ | async) as teams">
+        <div *ngFor="let team of teams" class="team-card">
+            <h3>{{ team.name }}</h3>
+            <p>Members: {{ team.members_count }}</p>
+
+            <div class="card-actions">
+                <button class="view-btn" [routerLink]="['/projects']" [queryParams]="{ teamId: team.id }">
+                    View Projects
+                </button>
+                <button class="add-member-btn" (click)="addMember(team)">
+                    + Add Member
+                </button>
+            </div>
+        </div>
+
+        <div *ngIf="teams.length === 0 && !isLoading" class="empty-state">
+            <p>You are not a member of any team yet.</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="auth-container">
+    <h2>Register</h2>
+
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+        <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" [(ngModel)]="name" #nameCtrl="ngModel" required minlength="2">
+
+            <div *ngIf="nameCtrl.invalid && (nameCtrl.dirty || nameCtrl.touched)">
+                <small class="validation-error" *ngIf="nameCtrl.errors?.['required']">
+                    Full name is required.
+                </small>
+                <small class="validation-error" *ngIf="nameCtrl.errors?.['minlength']">
+                    Name must be at least 2 characters long.
+                </small>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" [(ngModel)]="email" #emailCtrl="ngModel" required email>
+
+            <div *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)">
+                <small class="validation-error" *ngIf="emailCtrl.errors?.['required']">
+                    Email is required.
+                </small>
+                <small class="validation-error" *ngIf="emailCtrl.errors?.['email']">
+                    Please enter a valid email address.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" [(ngModel)]="password" #passCtrl="ngModel" required
+                minlength="6">
+
+            <div *ngIf="passCtrl.invalid && (passCtrl.dirty || passCtrl.touched)">
+                <small class="validation-error" *ngIf="passCtrl.errors?.['required']">
+                    Password is required.
+                </small>
+                <small class="validation-error" *ngIf="passCtrl.errors?.['minlength']">
+                    Password must be at least 6 characters long.
+                </small>
+            </div>
+        </div>
+        <div *ngIf="emailExistsError" class="alert-box warning">
+            <p>
+                <strong>This email is already registered.</strong>
+            </p>
+            <div class="actions">
+                <a routerLink="/login" class="btn-link">Login with this email</a>
+                <button type="button" (click)="email = ''; emailExistsError = false" class="btn-link secondary">
+                    Use different email
+                </button>
+            </div>
+        </div>
+        <button type="submit" [disabled]="registerForm.invalid || isLoading">
+            {{ isLoading ? 'Registering...' : 'Register' }}
+        </button>
+    </form>
+
+    <p class="error-text" *ngIf="errorMsg">{{ errorMsg }}</p>
+
+    <p>
+        Already have an account? <a routerLink="/login">Login here</a>
+    </p>
+</div>

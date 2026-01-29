@@ -1,0 +1,24 @@
+<footer class="app-footer">
+  <div class="footer-container">
+
+    <div class="copyright">
+      &copy; {{ currentYear }} Team Tasks App. All rights reserved.
+    </div>
+
+    <nav class="footer-nav">
+
+      <ng-container *ngIf="authService.currentUser(); else guestFooter">
+        <span class="nav-title">Quick Access:</span>
+        <a routerLink="/teams">My Teams</a>
+        <a routerLink="/projects">My Projects</a>
+        <a routerLink="/all-tasks">All Tasks</a>
+      </ng-container>
+
+      <ng-template #guestFooter>
+        <a routerLink="/login">Login</a>
+        <a routerLink="/register">Register</a>
+      </ng-template>
+
+    </nav>
+  </div>
+</footer>

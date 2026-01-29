@@ -1,0 +1,124 @@
+.all-tasks-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  margin-bottom: 30px;
+  h1 { margin-bottom: 5px; }
+  p { color: #666; margin: 0; }
+}
+
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-left: 4px solid #007bff; // פס צבע בצד
+
+  &.done {
+    border-left-color: #28a745;
+    opacity: 0.7;
+    h3 { text-decoration: line-through; color: #888; }
+  }
+
+  .task-info {
+    flex: 1;
+    
+    .header-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 5px;
+      
+      h3 { margin: 0; font-size: 1.1rem; }
+    }
+
+    .desc { margin: 5px 0; color: #555; }
+    .meta { color: #999; font-size: 0.85rem; }
+  }
+
+  .task-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+
+    .btn {
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-decoration: none;
+      
+      &.link { background: #e9ecef; color: #333; }
+      &.done-btn { background: #28a745; color: white; }
+      &.undo-btn { background: #ffc107; color: #333; }
+      &.delete-btn { background: none; color: #dc3545; font-size: 1.2rem; }
+    }
+  }
+}
+
+// תגיות (Badges)
+.badge {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: white;
+  font-weight: bold;
+
+  &.priority.high { background: #dc3545; }
+  &.priority.normal { background: #17a2b8; }
+  &.priority.low { background: #6c757d; }
+
+  &.status { background: #eee; color: #333; border: 1px solid #ccc; }
+}
+
+// רספונסיביות למובייל
+@media (max-width: 600px) {
+  .task-row {
+    flex-direction: column;
+    align-items: flex-start;
+    
+    .task-actions {
+      margin-left: 0;
+      margin-top: 15px;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+}
+
+.filters-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+  .search-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  .filter-select {
+    width: 160px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+  }
+}

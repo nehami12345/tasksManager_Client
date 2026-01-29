@@ -1,0 +1,66 @@
+<div class="all-tasks-container">
+  <header>
+    <h1>All My Tasks</h1>
+    <p>Overview of all tasks across all projects</p>
+  </header>
+  <div class="filters-bar">
+    <input type="text" placeholder="🔍 Search tasks..." [(ngModel)]="searchTerm" class="search-input">
+
+    <select [(ngModel)]="filterPriority" class="filter-select">
+      <option value="all">All Priorities</option>
+      <option value="high">High Priority</option>
+      <option value="normal">Normal Priority</option>
+      <option value="low">Low Priority</option>
+    </select>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">Loading tasks...</div>
+  <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+  <div class="tasks-list" *ngIf="(tasks$ | async) | taskFilter:searchTerm:filterPriority as tasks">
+
+    <div *ngFor="let task of tasks" class="task-row" [class.done]="task.status === 'done'">
+
+      <div class="task-info">
+        <div class="header-row">
+          <h3>{{ task.title }}</h3>
+          <span class="badge priority" [class]="task.priority">{{ task.priority }}</span>
+          <span class="badge status" [class]="task.status">{{ task.status.replace('_', ' ') }}</span>
+        </div>
+        <p class="desc">{{ task.description || 'No description' }}</p>
+        <small class="meta">
+          Project #{{ task.project_id }}
+        </small>
+      </div>
+
+      <div class="task-actions">
+
+        <a [routerLink]="['/projects', task.project_id]" class="btn link">Go to Project</a>
+
+        <button *ngIf="task.status !== 'done'" class="btn done-btn" (click)="updateStatus(task, 'done')">
+          ✓ Mark Done
+        </button>
+
+        <button *ngIf="task.status === 'done'" class="btn undo-btn" (click)="updateStatus(task, 'in_progress')">
+          ↺ Reopen
+        </button>
+
+        <button class="btn delete-btn" (click)="deleteTask(task.id)">🗑</button>
+      </div>
+
+    </div>
+
+    <ng-container *ngIf="tasks.length === 0 && !isLoading">
+
+      <div *ngIf="hasTasks" class="empty-state search-empty">
+        No tasks found matching "{{ searchTerm }}" with priority "{{ filterPriority }}".
+        <button (click)="searchTerm = ''; filterPriority = 'all'" class="btn link">Clear Filters</button>
+      </div>
+
+      <div *ngIf="!hasTasks" class="empty-state">
+        No tasks found in any project. Great job!
+      </div>
+
+    </ng-container>
+  </div>
+</div>

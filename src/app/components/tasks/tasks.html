@@ -1,0 +1,164 @@
+<div class="tasks-container">
+  <header>
+    <h1>Project Tasks</h1>
+    <button class="toggle-form-btn" (click)="isCreateFormVisible = !isCreateFormVisible">
+      {{ isCreateFormVisible ? 'Close Form' : '+ Add New Task' }}
+    </button>
+    <a routerLink="/projects" class="back-link">← Back to Projects</a>
+  </header>
+
+  <div class="filters-bar">
+    <input type="text" placeholder="🔍 Search tasks..." [(ngModel)]="searchTerm" (ngModelChange)="applyFilter()"
+      class="search-input">
+
+    <select [(ngModel)]="filterPriority" class="filter-select">
+      <option value="all">All Priorities</option>
+      <option value="high">High Priority</option>
+      <option value="normal">Normal Priority</option>
+      <option value="low">Low Priority</option>
+    </select>
+  </div>
+
+  <div class="create-task-form" *ngIf="isCreateFormVisible">
+    <h3>Add New Task</h3>
+    
+    <div class="form-row">
+      <input type="text" class="title-input" placeholder="Task Title (Required)" [(ngModel)]="newTaskTitle">
+
+      <input type="text" class="desc-input" placeholder="Description (Optional)" [(ngModel)]="newTaskDesc">
+    </div>
+
+    <div class="form-row secondary">
+
+      <div class="field-group">
+        <label>Priority:</label>
+        <select [(ngModel)]="newTaskPriority">
+          <option value="low">Low</option>
+          <option value="normal">Normal</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+
+      <button (click)="createTask()" [disabled]="!newTaskTitle.trim()">
+        + Create Task
+      </button>
+    </div>
+  </div>
+
+
+  <div *ngIf="isLoading" class="loading">Loading tasks...</div>
+
+  <div class="board" *ngIf="(tasks$ | async) as tasks">
+
+    <div class="column todo">
+      <h3>To Do</h3>
+      <div class="task-list">
+        <ng-container *ngFor="let task of filteredTasks">
+          <ng-container *ngIf="task.status === 'todo'">
+            <ng-container *ngTemplateOutlet="taskCardTemplate; context: {task: task}"></ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="column in-progress">
+      <h3>In Progress</h3>
+      <div class="task-list">
+        <ng-container *ngFor="let task of filteredTasks">
+          <ng-container *ngIf="task.status === 'in_progress'">
+            <ng-container *ngTemplateOutlet="taskCardTemplate; context: {task: task}"></ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="column done">
+      <h3>Done</h3>
+      <div class="task-list">
+        <ng-container *ngFor="let task of filteredTasks">
+          <ng-container *ngIf="task.status === 'done'">
+            <ng-container *ngTemplateOutlet="taskCardTemplate; context: {task: task}"></ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="empty-states-container" *ngIf="!isLoading">
+
+    <div *ngIf="hasTasksInProject && filteredTasks.length === 0" class="empty-state search-empty">
+      No tasks found matching "{{ searchTerm }}".
+      <button (click)="searchTerm = ''; filterPriority = 'all'; applyFilter()" class="btn link">Clear Filters</button>
+    </div>
+
+    <div *ngIf="!hasTasksInProject" class="empty-state">
+      No tasks in this project yet. Start by creating one!
+    </div>
+
+  </div>
+
+  <ng-template #taskCardTemplate let-task="task">
+    <div class="task-card" [class.done-card]="task.status === 'done'">
+
+      <div *ngIf="editingTaskId !== task.id">
+        <div class="card-header-row">
+          <h4>{{ task.title }}</h4>
+          <button class="edit-btn" (click)="startEditing(task)" title="Edit">✏️</button>
+        </div>
+
+        <p>{{ task.description }}</p>
+
+        <div class="meta-info">
+          <span class="badge" [class.low]="task.priority === 'low'" [class.normal]="task.priority === 'normal'"
+            [class.high]="task.priority === 'high'">
+            {{ task.priority }}
+          </span>
+
+        </div>
+
+        <div class="actions">
+          <ng-container [ngSwitch]="task.status">
+            <button *ngSwitchCase="'todo'" (click)="updateStatus(task, 'in_progress')">Start →</button>
+
+            <ng-container *ngSwitchCase="'in_progress'">
+              <button (click)="updateStatus(task, 'todo')">← Back</button>
+              <button (click)="updateStatus(task, 'done')">Done →</button>
+            </ng-container>
+
+            <button *ngSwitchCase="'done'" (click)="updateStatus(task, 'in_progress')">← Reopen</button>
+          </ng-container>
+
+          <button class="delete-btn" (click)="deleteTask(task.id)">🗑</button>
+        </div>
+
+        <div class="comments-toggle">
+          <button class="link-btn" (click)="toggleComments(task.id)">
+            {{ activeTaskId === task.id ? 'Hide' : 'Show' }} Comments
+          </button>
+        </div>
+        <app-comments *ngIf="activeTaskId === task.id" [taskId]="task.id"></app-comments>
+      </div>
+
+      <div *ngIf="editingTaskId === task.id" class="edit-form">
+        <input type="text" [(ngModel)]="editedTask.title" placeholder="Title" class="edit-input title">
+        <textarea [(ngModel)]="editedTask.description" placeholder="Description" rows="3"
+          class="edit-input desc"></textarea>
+        <div class="edit-row">
+          <select [(ngModel)]="editedTask.priority" class="edit-select">
+            <option value="low">Low</option>
+            <option value="normal">Normal</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div class="edit-actions">
+          <button class="save-btn" (click)="saveTask()">Save</button>
+          <button class="cancel-btn" (click)="cancelEditing()">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+  </ng-template>
+
+
+</div>

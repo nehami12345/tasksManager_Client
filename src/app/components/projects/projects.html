@@ -1,0 +1,41 @@
+<div class="projects-container">
+    <header>
+        <h1>My Projects</h1>
+    </header>
+
+    <div class="create-project-section" *ngIf="teamsList.length > 0">
+        <h3>Create New Project</h3>
+        <div class="form-row">
+            <select [(ngModel)]="selectedTeamId">
+                <option *ngFor="let team of teamsList" [value]="team.id">{{ team.name }}</option>
+            </select>
+            <input type="text" placeholder="Project Name" [(ngModel)]="newProjectName">
+            <input type="text" placeholder="Description (Optional)" [(ngModel)]="newProjectDesc">
+            <button (click)="createProject()" [disabled]="!newProjectName.trim()">Create</button>
+        </div>
+    </div>
+
+    <div *ngIf="teamsList.length === 0 && !isLoading" class="warning">
+        You need to join or create a team first! <a routerLink="/teams">Go to Teams</a>
+    </div>
+
+    <div *ngIf="isLoading" class="loading">Loading projects...</div>
+
+    <div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+
+    <div class="projects-grid" *ngIf="(projects$ | async) as projects">
+        <div *ngFor="let project of projects" class="project-card">
+            <div class="card-header">
+                <h3>{{ project.name }}</h3>
+                <span class="status-badge">{{ project.status }}</span>
+            </div>
+            <p class="desc">{{ project.description || 'No description' }}</p>
+            <small>Team ID: {{ project.team_id }}</small>
+            <button class="view-btn" [routerLink]="['/projects', project.id]">View Tasks</button>
+        </div>
+
+        <div *ngIf="projects.length === 0 && !isLoading" class="empty-state">
+            <p>No projects found. Create one above!</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="comments-section">
+  <h4 *ngIf="(comments$ | async) as comments">
+    Comments ({{ comments.length }})
+  </h4>
+
+  <div class="comments-list">
+    <div *ngIf="isLoading" class="loading">Loading comments...</div>
+
+    <ng-container *ngIf="(comments$ | async) as comments">
+      <div *ngFor="let comment of comments" class="comment-item">
+        <div class="comment-header">
+          <span class="author">{{ comment.author_name }}</span>
+          <span class="date">{{ comment.created_at | date:'short' }}</span>
+        </div>
+        <div class="comment-body">{{ comment.body }}</div>
+      </div>
+
+      <div *ngIf="comments.length === 0 && !isLoading" class="empty">
+        No comments yet. Be the first to say something!
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="add-comment-form">
+    <textarea [(ngModel)]="newCommentBody" placeholder="Write a comment..." rows="2"
+      (keydown.control.enter)="addComment()">
+    </textarea>
+    <button (click)="addComment()" [disabled]="!newCommentBody.trim()">Send</button>
+  </div>
+</div>

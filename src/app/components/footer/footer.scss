@@ -1,0 +1,62 @@
+/* Professional & Clean Footer Design (CSS-Only) */
+
+// Color Palette
+$text-primary: #111827;
+$text-secondary: #6b7280;
+$bg-color: #f9fafb; // A very light gray, almost white
+$border-color: #e5e7eb;
+$primary-color: #2563eb;
+
+:host {
+  display: block;
+  background: $bg-color;
+  color: $text-secondary;
+  border-top: 1px solid $border-color;
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.copyright {
+  font-size: 0.9rem;
+}
+
+.footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $text-primary;
+}
+
+.footer-nav a {
+  color: $text-secondary;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.25s ease;
+
+  &:hover {
+    color: $primary-color;
+    text-decoration: underline;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

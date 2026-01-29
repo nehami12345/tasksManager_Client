@@ -1,0 +1,19 @@
+<header class="app-header">
+    <div class="logo">
+        <a routerLink="/">Task Manager</a>
+    </div>
+
+    <nav>
+        <ng-container *ngIf="authService.currentUser() as user; else guestNav">
+            <span class="user-greeting">Hello, {{ user.name }}</span>
+            <a routerLink="/teams" routerLinkActive="active">My Teams</a>
+            <a routerLink="/all-tasks" routerLinkActive="active">All Tasks</a>
+            <button (click)="logout()" class="logout-btn">Logout</button>
+        </ng-container>
+
+        <ng-template #guestNav>
+            <a routerLink="/login" routerLinkActive="active">Login</a>
+            <a routerLink="/register" routerLinkActive="active">Register</a>
+        </ng-template>
+    </nav>
+</header>

@@ -1,0 +1,131 @@
+/* Modern & Clean Comments Section Design */
+
+// Variables
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$primary-color: #2563eb;
+$bg-page: #f9fafb;
+$border-color: #e5e7eb;
+$transition: 0.2s ease-in-out;
+
+:host {
+  display: block;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid $border-color;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.comment-item {
+  display: flex;
+  gap: 12px;
+
+  .author-initial {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: $primary-color;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }
+
+  .comment-content {
+    .comment-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+
+      .author-name {
+        font-weight: 600;
+        color: $text-primary;
+      }
+      .comment-date {
+        font-size: 0.8rem;
+        color: $text-secondary;
+      }
+    }
+    .comment-body {
+      font-size: 0.95rem;
+      color: $text-primary;
+      line-height: 1.6;
+    }
+  }
+}
+
+// Add Comment Form
+.add-comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  textarea {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    resize: vertical;
+    min-height: 60px;
+    transition: all $transition;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+    }
+  }
+
+  button {
+    align-self: flex-end;
+    background-color: $primary-color;
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color $transition;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Toggle Form Button
+.toggle-form-btn {
+  background-color: $primary-color;
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color $transition;
+}
+
+// Styling for the comments toggle button
+.comments-toggle .link-btn {
+  background: none;
+  border: none;
+  color: $primary-color;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 4px 0;
+  &:hover {
+    text-decoration: underline;
+  }
+}

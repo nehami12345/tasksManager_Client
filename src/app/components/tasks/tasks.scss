@@ -1,0 +1,227 @@
+/* Final Design for Tasks Page: Clean Style with Full Functionality */
+
+// --- VARIABLES ---
+$text-primary: #1f2937;
+$text-secondary: #6b7280;
+$primary-color: #2563eb;
+$bg-page: #f9fafb;
+$bg-card: #ffffff;
+$border-color: #e5e7eb;
+$shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$transition: 0.2s ease-in-out;
+
+// Priority Colors
+$high-bg: #fee2e2; $high-text: #b91c1c;
+$normal-bg: #ffedd5; $normal-text: #9a3412;
+$low-bg: #dbeafe; $low-text: #1e40af;
+
+// --- BASE LAYOUT ---
+:host {
+  background-color: $bg-page;
+}
+
+.tasks-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 32px;
+
+  header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin-bottom: 24px;
+  }
+}
+
+// --- FILTERS & CREATE FORM ---
+.filters-bar, .create-task-form {
+  background-color: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: $shadow;
+}
+
+.filters-bar {
+  display: flex;
+  gap: 16px;
+  input, select {
+    border-radius: 8px;
+    border: 1px solid $border-color;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+    }
+  }
+  .search-input { flex-grow: 1; }
+}
+
+.create-task-form {
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 16px;
+  }
+  .form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    input { flex-grow: 1; }
+  }
+  .secondary {
+    justify-content: space-between;
+    align-items: center;
+  }
+  .field-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  button {
+    background-color: $primary-color;
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
+  }
+}
+
+// --- KANBAN BOARD ---
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.column {
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  padding: 16px;
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0 0 16px;
+    padding: 0 8px;
+  }
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+// --- TASK CARD ---
+.task-card {
+  background-color: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: $shadow;
+  transition: box-shadow $transition;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    .edit-btn { opacity: 1; }
+  }
+
+  .card-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    h4 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin: 0;
+    }
+    .edit-btn {
+      opacity: 0;
+      transition: opacity $transition;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: $text-secondary;
+      &:hover { color: $primary-color; }
+    }
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: $text-secondary;
+    margin: 0 0 16px;
+  }
+
+  .meta-info .badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 12px;
+    text-transform: capitalize;
+    &.high { background-color: $high-bg; color: $high-text; }
+    &.normal { background-color: $normal-bg; color: $normal-text; }
+    &.low { background-color: $low-bg; color: $low-text; }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid $border-color;
+
+    button {
+      background: none;
+      border: 1px solid $border-color;
+      font-size: 0.8rem;
+      color: $text-secondary;
+      cursor: pointer;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: all $transition;
+      &:hover { background-color: #f3f4f6; color: $text-primary; }
+    }
+    .delete-btn {
+      border: none;
+      font-size: 1rem;
+      &:hover { color: $high-text; background-color: $high-bg; }
+    }
+  }
+
+  // Edit Form inside the card
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+    .edit-input, .edit-select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid $border-color;
+      border-radius: 6px;
+    }
+    .edit-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      button {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .save-btn { background-color: $primary-color; color: white; border: none; }
+      .cancel-btn { background-color: #f3f4f6; border: 1px solid $border-color; }
+    }
+  }
+}

@@ -1,59 +1,88 @@
-# TasksClient
+# TaskFlow - Collaborative Task Management
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
+TaskFlow is a modern, single-page application built with Angular for teams to manage their projects and tasks efficiently. It provides a clean and intuitive interface for creating teams, organizing projects, and tracking tasks through a Kanban-style board.
 
-## Development server
+---
 
-To start a local development server, run:
+## ✨ Features
 
-```bash
-ng serve
-```
+-   **User Authentication:** Secure login and registration system using JWT.
+-   **Team Management:** Create teams and invite members to collaborate.
+-   **Project Organization:** Create and manage multiple projects within each team.
+-   **Kanban Task Board:** Visualize your workflow with "To Do", "In Progress", and "Done" columns.
+-   **Full CRUD for Tasks:** Create, read, update, and delete tasks with ease.
+-   **Task Prioritization:** Assign priorities (High, Medium, Low) to focus on what matters.
+-   **Commenting System:** Discuss task details with your team members directly on the task card.
+-   **Responsive Design:** A clean and professional UI that works seamlessly on all devices.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🛠️ Tech Stack
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+-   **Framework:** [Angular](https://angular.io/) (v21.1.0)
+-   **Styling:** [SCSS](https://sass-lang.com/) for advanced and maintainable stylesheets.
+-   **State Management:** [RxJS](https://rxjs.dev/) and [Angular Signals](https://angular.io/guide/signals) for reactive data flow.
+-   **HTTP Client:** Angular's built-in `HttpClient` with `HttpInterceptor` for handling API requests and JWT authentication.
+-   **Testing:** [Vitest](https://vitest.dev/) for unit testing.
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🚀 Getting Started
 
-```bash
-ng generate --help
-```
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
-## Building
+### Prerequisites
 
-To build the project run:
+-   [Node.js](https://nodejs.org/) (v18 or later)
+-   [npm](https://www.npmjs.com/) (v9 or later)
 
-```bash
-ng build
-```
+### Installation & Setup
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repository-url>
+    ```
 
-## Running unit tests
+2.  **Navigate to the project directory:**
+    ```bash
+    cd TasksClient
+    ```
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+3.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-```bash
-ng test
-```
+### Running the Development Server
 
-## Running end-to-end tests
+1.  **Start the server:**
+    ```bash
+    ng serve
+    ```
 
-For end-to-end (e2e) testing, run:
+2.  **Open the application:**
+    Navigate to `http://localhost:4200/` in your browser. The app will automatically reload if you change any of the source files.
 
-```bash
-ng e2e
-```
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 📂 Project Structure
 
-## Additional Resources
+The project follows a standard Angular structure, organized for scalability and maintainability.
+src/ ├── app/ │ ├── components/ # All UI components (login, header, teams, tasks...) │ ├── core/ # Core logic (auth.guard, auth.interceptor) │ ├── models/ # TypeScript interfaces for data models (User, Team, Project) │ ├── services/ # Services for API interaction and business logic │ └── ... ├── assets/ # Static assets like images and fonts └── environments/ # Environment-specific configurations (dev, prod)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+---
+
+## 📄 API Endpoints
+
+The application interacts with a backend server that exposes the following main REST API endpoints:
+
+-   `/api/auth/login`
+-   `/api/auth/register`
+-   `/api/teams`
+-   `/api/projects`
+-   `/api/tasks`
+-   `/api/comments`
+
+All protected routes require a `Bearer <token>` in the `Authorization` header.
+

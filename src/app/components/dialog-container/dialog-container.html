@@ -1,0 +1,22 @@
+<div class="dialog-backdrop" *ngIf="dialogService.config$ | async as config">
+      
+      <div class="dialog-box">
+        <h3>{{ config.title }}</h3>
+        <p>{{ config.message }}</p>
+
+        <input *ngIf="config.type === 'input'" 
+               type="text" 
+               [(ngModel)]="inputValue" 
+               [placeholder]="config.placeholder"
+               (keyup.enter)="onConfirm()"
+               autofocus>
+
+        <div class="actions">
+          <button class="btn-cancel" (click)="onCancel()">Cancel</button>
+          <button class="btn-confirm" (click)="onConfirm()" [disabled]="config.type === 'input' && !inputValue">
+            OK
+          </button>
+        </div>
+      </div>
+
+    </div>
