@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
-  apiUrl: 'https://tasksmanager-server.onrender.com/api'
+  production: false,
+  apiUrl: 'http://localhost:3000/api'
 };
