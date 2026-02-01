@@ -1,62 +1,106 @@
-/* Professional & Clean Footer Design (CSS-Only) */
-
-// Color Palette
-$text-primary: #111827;
-$text-secondary: #6b7280;
-$bg-color: #f9fafb; // A very light gray, almost white
-$border-color: #e5e7eb;
-$primary-color: #2563eb;
-
-:host {
-  display: block;
-  background: $bg-color;
-  color: $text-secondary;
-  border-top: 1px solid $border-color;
+.app-footer {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  padding: 2rem 0;
+  margin-top: auto;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
 }
 
 .footer-container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 32px;
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 1.5rem;
 }
 
-.copyright {
+.app-footer .copyright {
+  color: rgba(255, 255, 255, 0.9);
   font-size: 0.9rem;
+  font-weight: 400;
 }
 
 .footer-nav {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-.nav-title {
+.footer-nav .nav-title {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
   font-size: 0.9rem;
-  font-weight: 500;
-  color: $text-primary;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
+  border-right: 2px solid rgba(255, 255, 255, 0.3);
+  padding-left: 1rem;
 }
 
 .footer-nav a {
-  color: $text-secondary;
+  color: #ffffff;
   text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
   font-size: 0.9rem;
-  transition: color 0.25s ease;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+}
 
-  &:hover {
-    color: $primary-color;
-    text-decoration: underline;
+.footer-nav a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .app-header nav {
+    float: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .app-header .logo {
+    display: block;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-nav {
+    justify-content: center;
+  }
+
+  .footer-nav .nav-title {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 }
 
-// Responsive adjustments
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    align-items: flex-start;
+@media (max-width: 480px) {
+  .app-header nav a,
+  .app-header .logout-btn,
+  .footer-nav a {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .app-header .user-greeting {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.8rem;
   }
 }

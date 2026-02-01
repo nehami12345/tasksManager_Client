@@ -1,123 +1,206 @@
-/* Professional & Clean Header Design (CSS-Only) */
-
-// Color Palette
-$primary-color: #2563eb; // A strong, modern blue
-$text-primary: #111827; // Very dark gray for high contrast
-$text-secondary: #4b5563;
-$bg-color: #ffffff;
-$border-color: #e5e7eb;
-
-// Transitions & Shadows
-$transition-speed: 0.25s;
-$shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.07);
-
-:host {
-  display: block;
-  background: $bg-color;
-  border-bottom: 1px solid $border-color;
-  box-shadow: $shadow;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
 .app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 68px;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 32px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
 }
 
-// Logo
-.logo a {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: $text-primary;
-  text-decoration: none;
-  letter-spacing: -1.5px;
-}
-
-// Navigation container
-nav {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-// User Greeting
-.user-greeting {
-  color: $text-secondary;
-  font-size: 0.95rem;
-  margin-right: 16px;
-}
-
-// Navigation Links
-nav a {
-  position: relative;
-  padding: 8px 12px;
-  color: $text-secondary;
-  font-size: 1rem;
-  font-weight: 500;
-  text-decoration: none;
-  border-radius: 6px;
-  transition: color $transition-speed ease, background-color $transition-speed ease;
-
-  // Underline animation
-  &::after {
+.app-header::before {
     content: '';
     position: absolute;
-    bottom: -2px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+}
+
+.app-header > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Container layout */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Logo styling */
+.logo a {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+}
+
+.logo a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
     width: 0;
-    height: 2px;
-    background-color: $primary-color;
-    transition: width $transition-speed ease;
-  }
+    height: 3px;
+    background: #ffffff;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
 
-  &:hover {
-    color: $text-primary;
-  }
+.logo a:hover::after {
+    width: 100%;
+}
 
-  // Active link style - very distinct
-  &.active {
-    color: $primary-color;
+.logo a:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* User greeting */
+.user-greeting {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Navigation links */
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.15);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+nav a:hover::before {
+    left: 0;
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+nav a.active {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Logout button */
+.logout-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
     font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
 
-    &::after {
-      width: 100%; // Full underline for active link
+.logout-btn:hover {
+    background: rgba(255, 59, 48, 0.9);
+    border-color: rgba(255, 59, 48, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 59, 48, 0.3);
+}
+
+.logout-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
     }
-  }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+    }
+
+    .logo a {
+        font-size: 1.5rem;
+    }
+
+    nav a,
+    .logout-btn {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .user-greeting {
+        font-size: 0.875rem;
+        padding: 0.4rem 0.8rem;
+    }
 }
 
-// Logout & Guest Buttons
-.logout-btn,
-nav a[routerLink="/login"],
-nav a[routerLink="/register"] {
-  border: 1px solid transparent;
-  font-weight: 500;
-  cursor: pointer;
-}
+@media (max-width: 480px) {
+    .app-header {
+        padding: 0.75rem;
+    }
 
-.logout-btn,
-nav a[routerLink="/login"] {
-  background-color: #f3f4f6;
-  color: $text-primary;
+    nav {
+        width: 100%;
+        gap: 0.5rem;
+    }
 
-  &:hover {
-    background-color: #e5e7eb;
-  }
-}
+    nav a,
+    .logout-btn {
+        flex: 1;
+        text-align: center;
+        min-width: fit-content;
+    }
 
-nav a[routerLink="/register"] {
-  background-color: $primary-color;
-  color: #ffffff;
-  border-color: $primary-color;
-
-  &:hover {
-    background-color: #1d4ed8; // Darker blue on hover
-  }
+    .user-greeting {
+        width: 100%;
+        text-align: center;
+    }
 }

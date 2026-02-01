@@ -37,8 +37,8 @@ export default {
 ],
   entryPointToBrowserMapping: undefined,
   assets: {
-    'index.csr.html': {size: 436, hash: 'd751e820338e033b1829fa0a7b6f79f2b2991ee3093ec04d3c3868358454a592', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
-    'index.server.html': {size: 949, hash: '2428d458761fa136c01a7b3f65653791db7f1a6e0b7ac9c27aab028b1550f3d0', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
+    'index.csr.html': {size: 435, hash: 'f46b7bc27dfa469d48c5ebc1d18376363399e1d5048329c3c93b3078ea613c64', text: () => import('./assets-chunks/index_csr_html.mjs').then(m => m.default)},
+    'index.server.html': {size: 948, hash: 'dfb4711faad8ff5880ef620ba292e33750abdf1c2f68e79bf55666482463794c', text: () => import('./assets-chunks/index_server_html.mjs').then(m => m.default)},
     'styles-5INURTSO.css': {size: 0, hash: 'menYUTfbRu8', text: () => import('./assets-chunks/styles-5INURTSO_css.mjs').then(m => m.default)}
   },
 };

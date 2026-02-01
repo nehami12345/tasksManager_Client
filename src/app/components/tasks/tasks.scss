@@ -1,157 +1,364 @@
-/* Final Design for Tasks Page: Clean Style with Full Functionality */
+/* ===================================
+   TASKS PAGE - PROFESSIONAL DESIGN
+   =================================== */
 
-// --- VARIABLES ---
-$text-primary: #1f2937;
+// --- צבעים ומשתנים ---
+$text-primary: #111827;
 $text-secondary: #6b7280;
 $primary-color: #2563eb;
+$primary-dark: #1d4ed8;
 $bg-page: #f9fafb;
 $bg-card: #ffffff;
 $border-color: #e5e7eb;
-$shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
 $transition: 0.2s ease-in-out;
 
-// Priority Colors
-$high-bg: #fee2e2; $high-text: #b91c1c;
-$normal-bg: #ffedd5; $normal-text: #9a3412;
-$low-bg: #dbeafe; $low-text: #1e40af;
+// צבעי עדיפות
+$high-bg: #fef2f2;
+$high-border: #fecaca;
+$high-text: #dc2626;
 
-// --- BASE LAYOUT ---
+$normal-bg: #fff7ed;
+$normal-border: #fed7aa;
+$normal-text: #ea580c;
+
+$low-bg: #eff6ff;
+$low-border: #bfdbfe;
+$low-text: #2563eb;
+
+// צבעי סטטוס
+$todo-bg: #f3f4f6;
+$todo-border: #d1d5db;
+
+$progress-bg: #fef3c7;
+$progress-border: #fde68a;
+
+$done-bg: #d1fae5;
+$done-border: #a7f3d0;
+
+// --- בסיס ---
 :host {
+  display: block;
   background-color: $bg-page;
+  min-height: 100vh;
 }
 
 .tasks-container {
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 40px 32px;
+  padding: 48px 32px;
 
-  header h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: $text-primary;
-    margin-bottom: 24px;
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: $text-primary;
+      margin: 0;
+      letter-spacing: -0.025em;
+    }
+
+    .toggle-form-btn {
+      background-color: $primary-color;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all $transition;
+      box-shadow: $shadow-sm;
+
+      &:hover {
+        background-color: $primary-dark;
+        box-shadow: $shadow-md;
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    .back-link {
+      color: $text-secondary;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color $transition;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
   }
 }
 
-// --- FILTERS & CREATE FORM ---
-.filters-bar, .create-task-form {
+// --- סרגל פילטרים ---
+.filters-bar {
   background-color: $bg-card;
   border: 1px solid $border-color;
   border-radius: 12px;
-  padding: 24px;
+  padding: 20px;
   margin-bottom: 32px;
-  box-shadow: $shadow;
-}
-
-.filters-bar {
+  box-shadow: $shadow-sm;
   display: flex;
   gap: 16px;
-  input, select {
-    border-radius: 8px;
+  flex-wrap: wrap;
+
+  .search-input,
+  .filter-select {
+    padding: 12px 16px;
     border: 1px solid $border-color;
-    padding: 10px 14px;
+    border-radius: 8px;
     font-size: 0.95rem;
+    transition: all $transition;
+    background-color: white;
+
     &:focus {
       outline: none;
       border-color: $primary-color;
-      box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
     }
   }
-  .search-input { flex-grow: 1; }
+
+  .search-input {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  .filter-select {
+    min-width: 180px;
+    cursor: pointer;
+  }
 }
 
+// --- טופס יצירת משימה ---
 .create-task-form {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 40px;
+  box-shadow: $shadow-lg;
+  color: white;
+
   h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin: 0 0 16px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 24px;
+    letter-spacing: -0.025em;
   }
+
   .form-row {
     display: flex;
     gap: 16px;
     margin-bottom: 16px;
-    input { flex-grow: 1; }
+    flex-wrap: wrap;
+
+    input,
+    select {
+      padding: 14px 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      font-size: 1rem;
+      background-color: rgba(255, 255, 255, 0.95);
+      color: $text-primary;
+      transition: all $transition;
+
+      &:focus {
+        outline: none;
+        border-color: white;
+        background-color: white;
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+      }
+
+      &::placeholder {
+        color: #9ca3af;
+      }
+    }
+
+    .title-input,
+    .desc-input {
+      flex: 1;
+      min-width: 200px;
+    }
   }
-  .secondary {
+
+  .form-row.secondary {
     justify-content: space-between;
     align-items: center;
-  }
-  .field-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  button {
-    background-color: $primary-color;
-    color: white;
-    font-weight: 500;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    cursor: pointer;
-    &:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .field-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      label {
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      select {
+        min-width: 140px;
+      }
+    }
+
+    button {
+      background-color: white;
+      color: #667eea;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all $transition;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
   }
 }
 
-// --- KANBAN BOARD ---
+// --- לוח קנבאן ---
 .board {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-}
+  margin-bottom: 40px;
 
-.column {
-  background-color: #f3f4f6;
-  border-radius: 12px;
-  padding: 16px;
-
-  h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: $text-primary;
-    margin: 0 0 16px;
-    padding: 0 8px;
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
   }
 }
 
-.task-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.column {
+  background-color: $todo-bg;
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 400px;
+  border: 2px solid $todo-border;
+  transition: all $transition;
+
+  &.in-progress {
+    background-color: $progress-bg;
+    border-color: $progress-border;
+  }
+
+  &.done {
+    background-color: $done-bg;
+    border-color: $done-border;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin: 0 0 20px;
+    padding: 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 }
 
-// --- TASK CARD ---
+// --- כרטיס משימה ---
 .task-card {
   background-color: $bg-card;
   border: 1px solid $border-color;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: $shadow;
-  transition: box-shadow $transition;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: $shadow-sm;
+  transition: all $transition;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: $primary-color;
+    transition: width $transition;
+  }
 
   &:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-    .edit-btn { opacity: 1; }
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+
+    &::before {
+      width: 6px;
+    }
+
+    .edit-btn {
+      opacity: 1;
+    }
+  }
+
+  &.done-card {
+    opacity: 0.75;
+
+    h4 {
+      text-decoration: line-through;
+      color: $text-secondary;
+    }
   }
 
   .card-header-row {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    gap: 12px;
+
     h4 {
-      font-size: 1rem;
-      font-weight: 500;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: $text-primary;
       margin: 0;
+      flex: 1;
+      line-height: 1.4;
     }
+
     .edit-btn {
       opacity: 0;
-      transition: opacity $transition;
       background: none;
       border: none;
+      font-size: 1.1rem;
       cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: all $transition;
       color: $text-secondary;
-      &:hover { color: $primary-color; }
+
+      &:hover {
+        background-color: #f3f4f6;
+        color: $primary-color;
+      }
     }
   }
 
@@ -159,69 +366,193 @@ $low-bg: #dbeafe; $low-text: #1e40af;
     font-size: 0.9rem;
     color: $text-secondary;
     margin: 0 0 16px;
+    line-height: 1.6;
   }
 
-  .meta-info .badge {
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 4px 10px;
-    border-radius: 12px;
-    text-transform: capitalize;
-    &.high { background-color: $high-bg; color: $high-text; }
-    &.normal { background-color: $normal-bg; color: $normal-text; }
-    &.low { background-color: $low-bg; color: $low-text; }
+  .meta-info {
+    margin-bottom: 16px;
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+
+      &.high {
+        background-color: $high-bg;
+        color: $high-text;
+        border: 1px solid $high-border;
+      }
+
+      &.normal {
+        background-color: $normal-bg;
+        color: $normal-text;
+        border: 1px solid $normal-border;
+      }
+
+      &.low {
+        background-color: $low-bg;
+        color: $low-text;
+        border: 1px solid $low-border;
+      }
+    }
   }
 
   .actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 16px;
-    padding-top: 12px;
+    gap: 8px;
+    padding-top: 16px;
     border-top: 1px solid $border-color;
 
     button {
-      background: none;
+      background-color: $bg-card;
       border: 1px solid $border-color;
-      font-size: 0.8rem;
       color: $text-secondary;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
       cursor: pointer;
-      padding: 4px 10px;
-      border-radius: 6px;
       transition: all $transition;
-      &:hover { background-color: #f3f4f6; color: $text-primary; }
+
+      &:hover {
+        background-color: #f9fafb;
+        color: $text-primary;
+        border-color: $primary-color;
+      }
     }
+
     .delete-btn {
       border: none;
-      font-size: 1rem;
-      &:hover { color: $high-text; background-color: $high-bg; }
+      background: none;
+      font-size: 1.2rem;
+      padding: 6px 10px;
+
+      &:hover {
+        background-color: $high-bg;
+        color: $high-text;
+      }
     }
   }
 
-  // Edit Form inside the card
+  .comments-toggle {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid $border-color;
+
+    .link-btn {
+      background: none;
+      border: none;
+      color: $primary-color;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 6px 0;
+      transition: color $transition;
+
+      &:hover {
+        color: $primary-dark;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  // טופס עריכה
   .edit-form {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-top: 12px;
-    .edit-input, .edit-select {
+    gap: 14px;
+    padding-top: 12px;
+
+    .edit-input,
+    .edit-select {
       width: 100%;
-      padding: 8px 12px;
+      padding: 10px 14px;
       border: 1px solid $border-color;
-      border-radius: 6px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: all $transition;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+      }
     }
+
+    textarea.edit-input {
+      resize: vertical;
+      min-height: 80px;
+      font-family: inherit;
+    }
+
+    .edit-row {
+      display: flex;
+      gap: 12px;
+    }
+
     .edit-actions {
       display: flex;
       justify-content: flex-end;
-      gap: 8px;
+      gap: 10px;
+      margin-top: 8px;
+
       button {
-        font-size: 0.85rem;
-        padding: 6px 12px;
-        border-radius: 6px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
         cursor: pointer;
+        transition: all $transition;
       }
-      .save-btn { background-color: $primary-color; color: white; border: none; }
-      .cancel-btn { background-color: #f3f4f6; border: 1px solid $border-color; }
+
+      .save-btn {
+        background-color: $primary-color;
+        color: white;
+        border: none;
+
+        &:hover {
+          background-color: $primary-dark;
+          box-shadow: $shadow-sm;
+        }
+      }
+
+      .cancel-btn {
+        background-color: #f3f4f6;
+        color: $text-secondary;
+        border: 1px solid $border-color;
+
+        &:hover {
+          background-color: #e5e7eb;
+          color: $text-primary;
+        }
+      }
     }
+  }
+}
+
+// --- מצבי ריק ---
+.empty-states-container {
+  margin-top: 40px;
+}
+
+.empty-state {
+  background-color: $bg-card;
+  border: 2px dashed $border-color;
+  border-radius: 16px;
+  padding: 60px 40px;
+  text-align: center;
+  color: $text-secondary;
+  font-size: 1.1rem;
+
+  &.search-empty {
+    border-color: #fbbf24;
+    background
+: #fffbeb;
   }
 }

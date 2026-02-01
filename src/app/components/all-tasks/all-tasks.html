@@ -4,9 +4,9 @@
     <p>Overview of all tasks across all projects</p>
   </header>
   <div class="filters-bar">
-    <input type="text" placeholder="🔍 Search tasks..." [(ngModel)]="searchTerm" class="search-input">
+    <input type="text" placeholder="🔍 Search tasks..." [(ngModel)]="searchTerm" class="search-input" id="taskSearch2">
 
-    <select [(ngModel)]="filterPriority" class="filter-select">
+    <select id="priorityFilter2" [(ngModel)]="filterPriority" class="filter-select">
       <option value="all">All Priorities</option>
       <option value="high">High Priority</option>
       <option value="normal">Normal Priority</option>

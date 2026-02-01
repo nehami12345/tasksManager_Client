@@ -1,19 +1,25 @@
-/* Comprehensive & Polished Projects Page Design */
+/* Modern & Professional Projects Page Design */
 
-// Color Palette & Variables
 $primary-color: #2563eb;
 $primary-color-dark: #1d4ed8;
 $text-primary: #111827;
-$text-secondary: #4b5563;
+$text-secondary: #6b7280;
 $bg-page: #f9fafb;
 $bg-card: #ffffff;
 $border-color: #e5e7eb;
-$shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-$transition-speed: 0.2s;
+$shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+$shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+$transition: 0.2s ease-in-out;
+
+// Status Colors
+$status-active: #10b981;
+$status-completed: #6366f1;
+$status-on-hold: #f59e0b;
 
 :host {
   display: block;
   background-color: $bg-page;
+  min-height: 100vh;
 }
 
 .projects-container {
@@ -21,74 +27,63 @@ $transition-speed: 0.2s;
   margin: 0 auto;
   padding: 40px 32px;
 
-  header h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: $text-primary;
+  header {
     margin-bottom: 32px;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: $text-primary;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
   }
 }
 
-// --- Create Project Form ---
 .create-project-section {
   background-color: $bg-card;
-  padding: 32px;
-  border-radius: 12px;
   border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 28px;
   margin-bottom: 40px;
   box-shadow: $shadow;
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 600;
     color: $text-primary;
-    margin: 0 0 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid $border-color;
+    margin: 0 0 20px;
   }
 
-  .form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
+  .form-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 
-  .form-group {
-    &.full-width {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      display: block;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: $text-primary;
-      margin-bottom: 8px;
-    }
-
-    input, select, textarea {
-      width: 100%;
+    select,
+    input {
+      flex: 1;
+      min-width: 200px;
       padding: 12px 16px;
       font-size: 1rem;
       border: 1px solid $border-color;
       border-radius: 8px;
-      transition: border-color $transition-speed ease, box-shadow $transition-speed ease;
+      background-color: $bg-card;
+      transition: all $transition;
 
       &:focus {
         outline: none;
         border-color: $primary-color;
-        box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+      }
+
+      &::placeholder {
+        color: #9ca3af;
       }
     }
-  }
-
-  .actions {
-    grid-column: 1 / -1;
-    text-align: right;
-    margin-top: 16px;
 
     button {
-      padding: 12px 28px;
+      padding: 0 28px;
       font-size: 1rem;
       font-weight: 600;
       color: #ffffff;
@@ -96,16 +91,62 @@ $transition-speed: 0.2s;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color $transition-speed ease;
+      transition: all $transition;
+      white-space: nowrap;
 
       &:hover:not(:disabled) {
         background-color: $primary-color-dark;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px -1px rgba($primary-color, 0.3);
+      }
+
+      &:disabled {
+        background-color: #d1d5db;
+        cursor: not-allowed;
+        transform: none;
       }
     }
   }
 }
 
-// --- Projects Grid ---
+.warning {
+  background-color: #fef3c7;
+  border: 1px solid #fbbf24;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  font-size: 1rem;
+  color: #92400e;
+  margin-bottom: 32px;
+
+  a {
+    color: $primary-color;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color $transition;
+
+    &:hover {
+      border-bottom-color: $primary-color;
+    }
+  }
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.1rem;
+  color: $text-secondary;
+}
+
+.error {
+  color: #dc2626;
+  background-color: #fee2e2;
+  border-radius: 12px;
+  border: 1px solid #fecaca;
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -116,61 +157,134 @@ $transition-speed: 0.2s;
   background-color: $bg-card;
   border: 1px solid $border-color;
   border-radius: 12px;
-  padding: 24px;
+  padding: 28px;
   box-shadow: $shadow;
   display: flex;
   flex-direction: column;
-  transition: transform $transition-speed ease, box-shadow $transition-speed ease;
+  transition: all $transition;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $primary-color, #7c3aed);
+    opacity: 0;
+    transition: opacity $transition;
+  }
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
+    transform: translateY(-6px);
+    box-shadow: $shadow-hover;
+
+    &::before {
+      opacity: 1;
+    }
   }
 
   .card-header {
-    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+
     h3 {
       font-size: 1.5rem;
       font-weight: 700;
       color: $text-primary;
       margin: 0;
-      line-height: 1.2;
+      line-height: 1.3;
     }
-    .team-name {
-      font-size: 0.9rem;
-      font-weight: 500;
+
+    .status-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 12px;
+      text-transform: capitalize;
+      white-space: nowrap;
+      background-color: #dbeafe;
       color: $primary-color;
-      margin-top: 4px;
     }
   }
 
-  .description {
+  .desc {
     color: $text-secondary;
-    margin: 0 0 24px;
     font-size: 1rem;
     line-height: 1.6;
+    margin: 0 0 16px;
     flex-grow: 1;
-    border-top: 1px solid $border-color;
-    padding-top: 16px;
   }
 
-  .view-tasks-btn {
-    margin-top: auto;
+  small {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .view-btn {
     width: 100%;
     padding: 12px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
+    color: #ffffff;
+    background-color: $primary-color;
+    border: none;
     border-radius: 8px;
     cursor: pointer;
-    background-color: $primary-color;
-    color: #ffffff;
-    border: 1px solid $primary-color;
-    text-align: center;
+    transition: all $transition;
     text-decoration: none;
-    transition: background-color $transition-speed ease;
+    text-align: center;
+    display: block;
 
     &:hover {
       background-color: $primary-color-dark;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px -1px rgba($primary-color, 0.4);
     }
+  }
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 40px;
+  background-color: $bg-card;
+  border-radius: 12px;
+  border: 2px dashed $border-color;
+
+  p {
+    font-size: 1.15rem;
+    color: $text-secondary;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .projects-container {
+    padding: 24px 16px;
+
+    header h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .create-project-section .form-row {
+    flex-direction: column;
+
+    select,
+    input,
+    button {
+      width: 100%;
+    }
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
   }
 }
